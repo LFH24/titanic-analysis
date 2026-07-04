@@ -3,6 +3,7 @@
 > 不只是预测准确率——这是一份展示「数据分析师如何思考」的 Notebook。
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
+[![Kaggle](https://img.shields.io/badge/Kaggle-0.74162-orange)](https://www.kaggle.com/competitions/titanic)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ---
@@ -42,6 +43,18 @@
 
 ---
 
+## 🏆 Kaggle 提交结果
+
+| 指标 | 分数 |
+|------|------|
+| Accuracy | **0.74162** |
+| 模型 | XGBoost（调参后） |
+| 排名 | Top 75%（约） |
+
+> ⚠️ 这个分数低于 `gender_submission` 基准（0.765），但本项目的核心目标是**展示完整的分析思维流程**，而非追求极致准确率。Notebook 第 7 章已复盘了准确率不足的原因及改进方向。
+
+---
+
 ## 🚀 快速复现
 
 ```bash
@@ -70,6 +83,7 @@ titanic-analysis/
 │   └── gender_submission.csv      # Kaggle 基准
 └── output/
     ├── submission.csv             # 最终预测结果
+    ├── kaggle-score.png           # Kaggle 提交分数截图
     └── figures/                   # 导出图表
 ```
 
