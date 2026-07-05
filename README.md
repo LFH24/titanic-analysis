@@ -1,6 +1,6 @@
-# Titanic: 从 EDA 到模型解释的完整二分类分析
+# Titanic：从 EDA 到模型解释的二分类分析
 
-> 一份完整的数据分析项目——覆盖从数据清洗到模型集成的全流程。
+基于 Kaggle Titanic 数据集，走了一遍完整的数据分析流程，包括数据清洗、探索性分析、特征工程、建模和模型解释。
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
 [![Kaggle](https://img.shields.io/badge/Kaggle-0.76555-orange)](https://www.kaggle.com/competitions/titanic)
@@ -8,75 +8,73 @@
 
 ---
 
-## 📌 核心结论
+## 主要发现
 
-基于 891 名乘客数据的分析，影响泰坦尼克号幸存率的因素按重要性排序：
+891 名乘客的数据里，影响幸存率最大的几个因素：
 
-- 🥇 **性别是第一决定因素** — 女性幸存率 74%，男性仅 19%（"妇女儿童优先"不是传言）
-- 🥈 **舱位等级紧随其后** — 头等舱幸存率 63%，三等舱仅 24%（财富直接影响了生存机会）
-- 🥉 **年龄有非线性影响** — 儿童（0-12 岁）幸存率更高，但成年男性各年龄段都很低
-- 📊 **家庭规模 2-4 人最优** — 独行者缺乏互助，大家庭（5+）难以统一行动
+- **性别** — 女性幸存率 74%，男性 19%。"妇女儿童优先"在数据上有实打实的体现
+- **舱位等级** — 头等舱 63%，三等舱 24%。舱位等级和生存机会之间的关系很直接
+- **年龄** — 12 岁以下的儿童幸存率明显高于成年人，但成年男性各年龄段差异不大
+- **家庭规模** — 同行 2 到 4 人的乘客存活率最高。独自旅行的人缺少互助，而大家庭（5 人以上）在混乱中很难统一行动
 
-> **"如果你是泰坦尼克号上的成年男性三等舱乘客，幸存率不到 10%。如果你是头等舱 8 岁小女孩的母亲，幸存率超过 90%。这就是这场灾难最残酷的真相。"**
+一个具体的数字：成年男性、三等舱乘客，幸存率不到 10%。
 
 ---
 
-## 🗺️ 分析流程
+## 分析流程
 
 ```
-第 1 章 · 问题定义    →  明确二分类任务 + 评估指标 + 业务视角切入
+第 1 章 · 问题定义    →  明确二分类任务、评估指标、从业务角度切入
 第 2 章 · EDA         →  缺失值矩阵 → 单变量分析（假设→验证） → 交叉分析
 第 3 章 · 缺失值处理   →  Age（分组中位数）/ Cabin（提取甲板） / Embarked / Fare
 第 4 章 · 特征工程     →  Title / FamilySize / IsAlone / AgeBin / FareBin / TicketGroup
 第 5 章 · 建模对比     →  5 模型 baseline → GridSearchCV → VotingClassifier 集成
 第 6 章 · 模型解释     →  特征重要性 + SHAP + 业务视角结论
-第 7 章 · 复盘改进     →  v1→v2 迭代记录 + 后续方向 + 框架迁移
+第 7 章 · 分析总结     →  关键结论回顾 + 改进方向
 ```
 
-每一步都有"为什么这么做"的分析——不止展示代码，更展示决策逻辑。
+每一步都解释了"为什么这么做"。比起准确率数字，我更在意分析逻辑是否经得起推敲。
 
 ---
 
-## 🛠️ 技术栈
+## 技术栈
 
-`Python` · `pandas` · `numpy` · `scikit-learn` · `XGBoost` · `VotingClassifier` · `matplotlib` · `seaborn` · `SHAP` · `missingno`
-
----
-
-## 🏆 Kaggle 提交结果
-
-| 指标 | v1 | v2 |
-|------|-----|-----|
-| Accuracy | 0.74162 | **0.76555** |
-| 模型 | XGBoost（单一） | XGBoost（StratifiedKFold + 正则化） |
-| 特征数 | 16 | 12 + Sex×Pclass 交互项 |
-| CV Accuracy | 0.8407 | 0.8507 |
-
-> v2 相比 v1 提升 **+2.4 个百分点**，达到 `gender_submission` 基准线。改进点：特征精简 → 交互特征 → 正则化 → StratifiedKFold。详见 Notebook 第 7 章。
+Python、pandas、numpy、scikit-learn、XGBoost、VotingClassifier、matplotlib、seaborn、SHAP、missingno
 
 ---
 
-## 🚀 快速复现
+## Kaggle 提交结果
+
+| 指标 | 结果 |
+|------|------|
+| Accuracy | **0.76555** |
+| 模型 | XGBoost（StratifiedKFold + 正则化） |
+| 特征数 | 12 + Sex×Pclass 交互项 |
+| CV Accuracy | 0.8507 |
+
+---
+
+## 复现
 
 ```bash
-# 1. 安装依赖
+# 安装依赖
 pip install -r requirements.txt
 
-# 2. 打开 Notebook
+# 打开 Notebook
 jupyter notebook titanic-analysis.ipynb
 
-# 3. Kernel → Restart & Run All
+# Kernel → Restart & Run All
 ```
 
 ---
 
-## 📂 文件结构
+## 文件结构
 
 ```
 titanic-analysis/
-├── README.md                      # 项目概述
-├── titanic-analysis.ipynb         # 核心：完整分析过程（7 章）
-├── requirements.txt               # Python 依赖
+├── README.md
+├── titanic-analysis.ipynb         # 完整分析过程（7 章）
+├── requirements.txt
 ├── .gitignore
 ├── data/
 │   ├── train.csv                  # 训练集（891 条）
@@ -90,11 +88,4 @@ titanic-analysis/
 
 ---
 
-## 📈 后续
-
-- 🔜 [House Prices / Bike Sharing Demand](https://github.com/LFH24) — 回归分析项目（7 月中上线）
-- 📋 更多数据科学项目持续更新中...
-
----
-
-*Built with ❤️ by [LFH24](https://github.com/LFH24) · 2026.07*
+LFH24 · 2026.07
