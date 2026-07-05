@@ -3,7 +3,7 @@
 > 一份完整的数据分析项目——覆盖从数据清洗到模型集成的全流程。
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
-[![Kaggle](https://img.shields.io/badge/Kaggle-0.74162-orange)](https://www.kaggle.com/competitions/titanic)
+[![Kaggle](https://img.shields.io/badge/Kaggle-0.76555-orange)](https://www.kaggle.com/competitions/titanic)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ---
@@ -45,13 +45,14 @@
 
 ## 🏆 Kaggle 提交结果
 
-| 指标 | v1 | v2（当前） |
-|------|-----|-----------|
-| Accuracy | 0.74162 | — |
-| 模型 | XGBoost（单一） | VotingClassifier（XGBoost + RF + SVM + LR） |
+| 指标 | v1 | v2 |
+|------|-----|-----|
+| Accuracy | 0.74162 | **0.76555** |
+| 模型 | XGBoost（单一） | XGBoost（StratifiedKFold + 正则化） |
 | 特征数 | 16 | 12 + Sex×Pclass 交互项 |
+| CV Accuracy | 0.8407 | 0.8507 |
 
-> v2 针对 v1 的过拟合问题做了特征精简、交互特征引入、Soft Voting 集成和正则化加强。详见 Notebook 第 7 章。
+> v2 相比 v1 提升 **+2.4 个百分点**，达到 `gender_submission` 基准线。改进点：特征精简 → 交互特征 → 正则化 → StratifiedKFold。详见 Notebook 第 7 章。
 
 ---
 
